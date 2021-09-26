@@ -126,7 +126,7 @@ public class Board {
 		return this.fromLocation(new Location(s));
 	}
 
-	public void move(Location from, Location to) {
+	public Piece move(Location from, Location to) {
 
 		nonInterestingMoves++;
 
@@ -140,9 +140,14 @@ public class Board {
 			((Pawn) fromLocation(from)).jumped = (Math.abs(from.y-to.y) == 2);
 		}
 
+		Piece toRet = null;
+
+		if(board[to.x][to.y] != null) toRet = board[to.x][to.y];
+
         board[to.x][to.y] = fromLocation(from);
 		fromLocation(to).setLocation(to);
 		board[from.x][from.y] = null;
+		return toRet;
 	}
 
 	private void move(Location from, Location to, boolean changeMoved) {
@@ -564,5 +569,9 @@ public class Board {
 
 	public void setNull(Location l) {
 		board[l.x][l.y] = null;
+	}
+
+	public void setPiece(Location l, Piece pieceToAdd) {
+		board[l.x][l.y] = pieceToAdd;
 	}
 }

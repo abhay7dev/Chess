@@ -114,11 +114,12 @@ public class Game {
 
             //System.out.println(move + "\t\t" + move.substring(0, 2) + " : " + move.substring(3));
 
-            b.move(new Location(move.substring(0, 2)), new Location(move.substring(3)));
+            Piece p = b.move(new Location(move.substring(0, 2)), new Location(move.substring(3)));
             
 			if(b.check(currentPlayer)) {
 				b.move(new Location(move.substring(3)), new Location(move.substring(0, 2)));
 				illegal = true;
+				if(p != null) b.setPiece(new Location(move.substring(3)), p);
 				continue;
 			} else illegal = false;
 
